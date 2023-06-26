@@ -22,8 +22,29 @@ struct OtherSoftware {
     version_number: String,
 }
 
-impl Licensed for SomeSoftware {} // Don't edit this line
-impl Licensed for OtherSoftware {} // Don't edit this line
+impl Licensed for SomeSoftware {
+    fn licensing_info(&self) -> String {
+        return self.version_number.to_string();
+    }
+}
+impl Licensed for OtherSoftware {
+    fn licensing_info(&self) -> String {
+        return self.version_number.clone();
+    }
+}
+
+impl Default for SomeSoftware {
+    fn default() -> Self {
+        Self { version_number: 1 }
+    }
+}
+impl Default for OtherSoftware {
+    fn default() -> Self {
+        Self {
+            version_number: String::from("v2.0.0"),
+        }
+    }
+}
 
 #[cfg(test)]
 mod tests {
@@ -40,3 +61,4 @@ mod tests {
         assert_eq!(other_software.licensing_info(), licensing_info);
     }
 }
+fn main() {}
